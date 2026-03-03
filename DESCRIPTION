@@ -1,0 +1,11 @@
+Package: rasper
+Type: Package
+Title: Data Integration and Risk Prediction using Rank Associated Penalized Regression
+Version: 0.1
+Date: 2026-03-03
+Authors@R: c(person("Nicholas", "Henderson", email = "nchender@umich.edu", role = c("cre", "aut")))
+Maintainer: Nicholas Henderson <nchender@umich.edu>
+Imports: stats, utils
+Description: fill in later
+License: GPL-2
+Encoding: UTF-8
