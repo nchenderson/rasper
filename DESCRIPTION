@@ -6,6 +6,6 @@ Date: 2026-03-03
 Authors@R: c(person("Nicholas", "Henderson", email = "nchender@umich.edu", role = c("cre", "aut")))
 Maintainer: Nicholas Henderson <nchender@umich.edu>
 Imports: stats, utils
-Description: fill in later
+Description: An R package that performs penalized regression to estimate a risk model while incorporating prior risk rankings.
 License: GPL-2
 Encoding: UTF-8
