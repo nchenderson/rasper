@@ -1,6 +1,6 @@
 RankPenalizedObj <- function(par, y, X, A, wvec, internal.obj, lambda, alpha) {
   n <- length(y)
-  if(internal.obj!="gaussian" | internal.obj!="logistic") {
+  if(internal.obj!="gaussian" & internal.obj!="logistic") {
     stop("Only gaussian or logistic internal objectives are allowed")
   } else if(internal.obj=="gaussian") {
     X.beta <- as.numeric(X%*%par)
