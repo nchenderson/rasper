@@ -25,8 +25,8 @@ rasper <- function(y, X, external.scores, lambda,
     nu <- 0.05*sqrt(sum(ols.beta*ols.beta))
   }
   external.ranking <- rank(external.scores)
-  wrank <- ConstructVmat(y=y, external.ranking=external.ranking,
-                         discrepancy=discrepancy, internal.obj=internal.obj)
+  wrank <- ConstructWmat(y=y, external.ranking=external.ranking,
+                         discrepancy=discrepancy)
 
   Amat <- kronecker(Xnorm, rep(1/nu, nn)) - kronecker(rep(1/nu, nn), Xnorm)
   objfnvals <- rep(NA, maxiter + 1)
@@ -63,8 +63,10 @@ rasper <- function(y, X, external.scores, lambda,
      }
      beta.old <- beta.new
   }
-
   num.iter <- k
+
+  ## Now compute the "approximate degrees of freedom" for this
+  ## value of alpha and lambda
   wrank.normalized <- wrank/sum(wrank)
   X1 <- XtXp.alpha - (lambda/4)*A.sandwich
   df.mat <- solve(X1, XtX)
