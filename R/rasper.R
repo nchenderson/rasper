@@ -41,7 +41,7 @@ rasper <- function(y, X, external.scores, lambda,
      VV.tmp <- wrank*plogis(A.beta)
      WW.tmp <- rep(NA, length(VV.tmp))
      small.phi <- abs(A.beta) < 1e-4
-     WW.tmp[small.phi] <-  (1/4 - (A.beta[small.phi]^2)/48 + (A.beta[small.phi]^4)/480)
+     WW.tmp[small.phi] <-  -0.25 + (A.beta[small.phi]^2)/48 - (A.beta[small.phi]^4)/480
      WW.tmp[!small.phi] <-  1/(2*A.beta[!small.phi]) - plogis(A.beta[!small.phi])/A.beta[!small.phi]
      VVec <- VV.tmp/sum(VV.tmp)
      VWVec <- VVec*WW.tmp
@@ -57,6 +57,7 @@ rasper <- function(y, X, external.scores, lambda,
      objfnvals[k+1] <- RankPenalizedObj(par=beta.new, y=y, X=Xnorm, A=Amat, wvec=wrank,
                                          internal.obj=internal.obj, lambda=lambda,
                                          alpha=alpha)
+
      par.dist <- sqrt(sum((beta.new - beta.old)^2))
      if(par.dist < tol) {
        break
