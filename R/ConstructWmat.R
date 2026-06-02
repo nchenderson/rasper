@@ -5,11 +5,9 @@ ConstructWmat <- function(y, external.ranking, discrepancy) {
   n <- length(y)
   if(discrepancy=="spearman") {
     Wmat <- rep(external.ranking, each=n)/(4*n*n)
-    #Vmat <- lambda/(4*n)*rep(n - external.ranking, each=n)
-  } else if(discrepancy=="kendall" & internal.obj == "auc") {
-    CompareRanks <- outer(external.ranking, external.ranking, FUN="-") > 0
-    CompareY <- outer(y, y) > 0
-    Wmat <- (2*lambda/(n-1))*(0.5 - CompareRanks) + CompareY
+  } else if(discrepancy=="kendall") {
+    CompareRanks <- kronecker(external.ranking, rep(1, n)) - kronecker(rep(1, n), external.ranking) > 0
+    Vmat <- (4/(n-1))*CompareRanks
   }
   return(c(Wmat))
 }

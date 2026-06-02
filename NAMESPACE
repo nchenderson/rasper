@@ -1,1 +1,1 @@
-export(rasper)
+export(rasper, loocv.rasper)
