@@ -1,11 +1,12 @@
 
 MaxRankCorr <- function(y, X, external.scores, nu=NULL, maxiter=100,
                         tol=1e-5) {
-
+  ## Function to compute betahat_r
   nn <- nrow(X)
+  p <- ncol(X)
   external.ranking <- rank(external.scores)
   if(is.null(nu)) {
-    nu <- 0.05
+      nu <- 1/(sqrt(p)*log(20))
   }
   external.ranking <- rank(external.scores)
   wrank <- kronecker(external.ranking, rep(1, nn)) - kronecker(rep(1, nn), external.ranking) > 0
