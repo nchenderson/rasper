@@ -61,5 +61,5 @@ MaxRankCorr <- function(y, X, external.scores, nu=NULL, maxiter=100,
     }
     beta.old <- beta.new
   }
-  return(list(coef=beta.new, objfnvals=objfnvals[!is.na(objfnvals)]))
+  return(list(coef=as.numeric(beta.new), objfnvals=objfnvals[!is.na(objfnvals)]))
 }
