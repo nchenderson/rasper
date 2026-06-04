@@ -1,7 +1,6 @@
 
 MaxRankCorr <- function(y, X, external.scores, nu=NULL, maxiter=100,
                         tol=1e-5) {
-  ## Function to compute betahat_r
   nn <- nrow(X)
   p <- ncol(X)
   external.ranking <- rank(external.scores)
@@ -14,8 +13,7 @@ MaxRankCorr <- function(y, X, external.scores, nu=NULL, maxiter=100,
 
   Amat <- kronecker(X, rep(1/nu, nn)) - kronecker(rep(1/nu, nn), X)
   objfnvals <- rep(NA, maxiter + 1)
-  beta.old <- rep(1.0, ncol(X))
-  beta.old <- beta.old/sqrt(sum(beta.old*beta.old))
+  beta.old <- rep(1.0/sqrt(p), ncol(X))
 
   betanormfn <- function(kappa, dvec, avec) {
     den <- (dvec/(dvec*dvec + kappa))^2
