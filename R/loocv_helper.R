@@ -15,10 +15,9 @@ loocv_helper <- function(y, X, external.scores, lambda,
     ext.scores.train <- external.scores[-k]
 
     if(is.null(Xlist)) {
-      rshrink <- RankingShrink(y=y.train, X=X.train, external.scores=ext.scores.train,
-                               lambda = lambda, alpha = alpha,
-                               internal.obj=internal.obj, discrepancy=discrepancy,
-                               nu=nu, maxiter=maxiter, optimization="direct")
+      rshrink <- rasper(y=y.train, X=X.train, external.scores=ext.scores.train,
+                        lambda = lambda, alpha = alpha, internal.obj=internal.obj,
+                        discrepancy=discrepancy, nu=nu, maxiter=maxiter)
     } else if(!is.null(Xlist)) {
       Xlist.train <- list()
       for(h in 1:nlist) {

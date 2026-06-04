@@ -13,8 +13,7 @@ loocv.rasper <- function(y, X, external.scores, lambda.seq, alpha.seq, Xlist=NUL
       for(j in 1:nalpha) {
         loo_specific <- loocv_helper(y, X, external.scores, lambda=lambda.seq[k],
                                      alpha=alpha.seq[j], Xlist=NULL, internal.obj=internal.obj,
-                                     discrepancy=discrepancy, nu=nu, maxiter=maxiter,
-                                     optimization="direct")
+                                     discrepancy=discrepancy, nu=nu, maxiter=maxiter)
 
         fit_all <- rasper(y, X, external.scores, lambda=lambda.seq[k],
                           alpha=alpha.seq[j], internal.obj=internal.obj,

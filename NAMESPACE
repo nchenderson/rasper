@@ -1,1 +1,1 @@
-export(rasper, loocv.rasper)
+export(rasper, loocv.rasper, MaxRankCorr)

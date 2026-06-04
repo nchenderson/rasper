@@ -4,10 +4,10 @@ ConstructWmat <- function(y, external.ranking, discrepancy) {
   ## It returns the vectorized version of the matrix
   n <- length(y)
   if(discrepancy=="spearman") {
-    Wmat <- rep(external.ranking, each=n)/(4*n*n)
+    Wmat <- rep(external.ranking, each=n)/(4*n*n*n)
   } else if(discrepancy=="kendall") {
     CompareRanks <- kronecker(external.ranking, rep(1, n)) - kronecker(rep(1, n), external.ranking) > 0
-    Vmat <- (4/(n-1))*CompareRanks
+    Wmat <- (4/(n*(n-1)))*CompareRanks
   }
   return(c(Wmat))
 }
