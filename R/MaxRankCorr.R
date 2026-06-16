@@ -40,13 +40,15 @@ MaxRankCorr <- function(y, X, external.scores, nu=NULL, maxiter=100,
 
     SVD_Amat <- svd(A.tmp)
     avec <- crossprod(SVD_Amat$u, Y.tmp)
+    Amax <- max((avec^2)*(SVD_Amat$d)^2)
 
-    kappa_up <- sqrt(p)*max(SVD_Amat$d^2)
-    min_d <- min(SVD_Amat$d)
-    kappa_down <- abs(min_d) - min_d^2
+    kappa_up <- sqrt(p*Amax)
+    min_d <- min(abs(SVD_Amat$d))
+    min_a <- min(abs(avec))
+    kappa_low <- min_a*min_d - min_d^2
 
     ## Find kappa to satisfy beta^t*beta = 1 constraint
-    kappa.star <- uniroot(betanormfn, lower=kappa_down, upper=kappa_up,
+    kappa.star <- uniroot(betanormfn, lower=kappa_low, upper=kappa_up,
                           dvec=SVD_Amat$d, avec=avec)$root
 
     dd_kap <- SVD_Amat$d/(SVD_Amat$d^2 + kappa.star)
