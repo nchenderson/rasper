@@ -1,7 +1,7 @@
 rasper <- function(y, X, external.scores, lambda,
                    alpha = 0, internal.obj="gaussian",
-                   discrepancy="spearman", nu=NULL, maxiter=500,
-                   tol=1e-5) {
+                   discrepancy="spearman", nu=NULL, Xlist=NULL,
+                   maxiter=500, tol=1e-5) {
 
   ## Assume, for now, that X has been standardized:
   Xnorm <- X
@@ -28,7 +28,20 @@ rasper <- function(y, X, external.scores, lambda,
   wrank <- ConstructWmat(y=y, external.ranking=external.ranking,
                          discrepancy=discrepancy)
 
-  Amat <- kronecker(Xnorm, rep(1/nu, nn)) - kronecker(rep(1/nu, nn), Xnorm)
+  if(is.null(Xlist)) {
+      Amat <- kronecker(Xnorm, rep(1/nu, nn)) - kronecker(rep(1/nu, nn), Xnorm)
+  } else {
+      nreps <- length(Xlist)
+      for(h in 1:nreps) {
+          Xtmp <- Xlist[[h]]
+          Amattmp <- kronecker(Xtmp, rep(1/nu, nn)) - kronecker(rep(1/nu, nn), Xtmp)
+          if(h == 1) {
+              Amat <- Amattmp
+          } else {
+              Amat <- rbind(Amat, Amattmp)
+          }
+      }
+  }
   objfnvals <- rep(NA, maxiter + 1)
   beta.old <- rep(0.0, ncol(Xnorm))
 
