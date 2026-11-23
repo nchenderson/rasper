@@ -82,7 +82,7 @@ rasper <- function(y, X, external.scores, lambda,
   ## Now compute the "approximate degrees of freedom" for this
   ## value of alpha and lambda
   wrank.normalized <- wrank/sum(wrank)
-  X1 <- XtXp.alpha - (lambda/4)*A.sandwich
+  X1 <- XtXp.alpha + (lambda/4)*A.sandwich
   df.mat <- solve(X1, XtX)
   approx.df <- sum(diag(df.mat))
 
